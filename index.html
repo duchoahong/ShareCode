@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Digital Clock</title>
+	<!-- <link rel="stylesheet" href="lib/web-fonts/stylesheet.css" type="text/css" charset="utf-8" /> -->
+	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/js/bootstrap.min.js">
+	<link rel="stylesheet" type="text/css" href="lib/style.css">
+	<script type="text/javascript" src="lib/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="block">
+		<!-- <p id="countDown"></p> -->
+		<div class="block-timer">
+			<p id="countDay"></p>
+			<p id="countHrs"></p>
+			<p id="countMin"></p>
+			<p id="countSec"></p>
+		</div>
+	</div>
+	<div class="block-button">
+		<button class="btn1 btn btn-warning" id="timerControl" type="submit">Pause</button>
+		<button class="btn2 btn btn-danger" id="timerReset" type="submit">Reset the <b>Clock</b></button>
+	</div>
+</div>	
+</body>
+	<script type="text/javascript">
+		$().ready(function() {
+			var timeLeft = 5400;
+			var count = 0;
+
+			function GetURLParameter(sParam) {
+			    var sPageURL = window.location.search.substring(1);
+			    var sURLVariables = sPageURL.split('&');
+			    for (var i = 0; i < sURLVariables.length; i++){
+			        var sParameterName = sURLVariables[i].split('=');
+			        if (sParameterName[0] == sParam)
+			        {
+			            return sParameterName[1];
+			        }
+			    }
+			}
+			var params = GetURLParameter('minute');
+			if (params) {
+				var min = params;
+				var sec = min * 60;
+				var timeLeft = sec;
+			}
+			// function convertSecond(s) {
+			// 	var hrs = Math.floor(s / 3600);
+			// 	var min = Math.floor(s / 60 - hrs * 60);
+			// 	// min = Math.floor(s / 60);
+			// 	var sec = s % 60;
+			// 	if (sec < 10) {
+			// 		sec = "0" + sec;
+			// 	} if (min < 10) {
+			// 		min = "0" + min;
+			// 	} if (hrs < 10) {
+			// 		hrs = "0" + hrs;
+			// 	}
+			// 	return hrs + ':' + min + ':' + sec;
+			// }
+			function convertDay(s) {
+				var day = Math.floor(s / 24 / 60 / 60);
+				if (day < 10) {
+					day = "00" + day;
+				}else if (day < 100) {
+					day = "0" + day;
+				}
+				return day;
+			}
+			function convertHrs(s) {
+				var days = parseInt(convertDay(s));
+				var hrs = Math.floor(s / 3600 - days * 24);
+				if (hrs < 10) {
+					hrs = "0" + hrs;
+				}
+				return hrs;
+			}
+			function convertMin(s) {
+				var days = parseInt(convertDay(s));
+				var hrs = parseInt(convertHrs(s));
+				var min = Math.floor(s / 60 - days * 24 * 60 - hrs * 60);
+				if (min < 10) {
+					min = "0" + min;
+				} 
+				return min;
+			}
+			function convertSecond(s) {
+				var sec = s % 60;
+				if (sec < 10) {
+					sec = "0" + sec;
+				} 
+				return sec;
+			}
+
+			var countDay = $('#countDay');
+			var countHrs = $('#countHrs');
+			var countMin = $('#countMin');
+			var countSec = $('#countSec');
+			function timeSet() {
+				countDay.html(convertDay(timeLeft-count));
+				countHrs.html(convertHrs(timeLeft-count));
+				countMin.html(convertMin(timeLeft-count));
+				countSec.html(convertSecond(timeLeft-count));			
+			}
+
+			var afterDay;
+			var afterHrs;
+			var afterMin;
+			function timeIt() {
+				count++;
+				// var totalTime = timeLeft - count;
+				var preDay = afterDay;
+					afterDay = convertDay(timeLeft-count);
+					if (preDay > afterDay || preDay < afterDay) {
+						countDay.addClass("onceColor");
+					}else {
+						countDay.removeClass("onceColor");
+					}
+				countDay.html(convertDay(timeLeft-count));
+
+				var preHrs = afterHrs;
+					afterHrs = convertHrs(timeLeft-count);
+					if (preHrs > afterHrs || preHrs < afterHrs) {
+						countHrs.addClass("onceColor");
+					}else {
+						countHrs.removeClass("onceColor");
+					}
+				countHrs.html(convertHrs(timeLeft-count));
+
+				var preMin = afterMin;
+					afterMin = convertMin(timeLeft-count);
+					if (preMin > afterMin || preMin < afterMin) {
+						countMin.addClass("onceColor");
+					}else {
+						countMin.removeClass("onceColor");
+					}
+				countMin.html(convertMin(timeLeft-count));
+				countSec.addClass("countColor");
+				countSec.html(convertSecond(timeLeft-count));
+				if (count == timeLeft) {
+					clearInterval(interval);
+					countSec.removeClass("countColor");
+				}
+			}
+
+			// set index time
+			var timeSet = timeSet();
+			// set time countDown
+			var interval = setInterval(timeIt, 1000);
+			// set time function control
+			var permit = $("#timerControl");
+			var flag = 0;
+			permit.click(function() {
+				// console.log(flag);
+				if (flag == 0) {
+					clearInterval(interval);
+					permit.text('continue');
+					countSec.removeClass("countColor");
+				} else {
+					interval = setInterval(timeIt, 1000);
+					permit.text('pause');
+					flag = -1;
+				}
+				flag += 1;
+			})
+			var control = $('#timerReset');
+			control.click(function() {
+				count = 0;
+				timeSet = timeSet();
+				interval = setInterval(timeIt, 1000);
+			})
+			// end time function control
+		})
+	</script>
+</html>

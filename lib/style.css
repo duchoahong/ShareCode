@@ -1,0 +1,103 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+@font-face {
+    font-family: digital-7regular;
+    src: url('web-fonts/digital-7-webfont.woff2') format('woff2'),
+         url('web-fonts/digital-7-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+.container {
+	width: 100%;
+	height: 750px;
+	box-sizing: border-box;
+	background-image: url("images/timer.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.block {
+	width: 900px;
+	text-align: center;
+	/*color: #F40E15;*/
+	margin: auto;
+	padding-top: 175px;
+	/*padding-left: 500px;*/
+}
+.block-timer {
+	width: 90%;
+	float: right;
+}
+.block-button {
+	width: 150px;
+	float: right;
+	clear: both;
+	text-align: center;
+	padding-top: 50px;
+}
+.btn1:hover {
+	background-color: #fff;
+	color: #EC971F;
+	font-weight: bold;
+	border: 1px solid #EC971F;
+}
+.btn2:hover {
+	background-color: #fff;
+	color: #C9302C;
+	border: 1px solid #C9302C;
+}
+#countDay {
+    padding-left: 30px;
+}
+#countHrs {
+    padding-left: 45px;
+}
+#countMin{
+    padding-left: 45px;
+}
+#countSec {
+	padding-left: 5px;
+}
+#countDay,#countHrs,#countMin,#countSec {
+	width: 25%;
+	float: left;
+	font-family: 'digital-7regular', Arial, sans-serif;
+	font-size: 90px;
+	text-shadow: 7px 6px 2px;
+	letter-spacing: 5px;
+	/*box-shadow: 12px 12px 12px;*/
+	-webkit-box-sizing: border-box;  
+	-moz-box-sizing: border-box;  
+	box-sizing: border-box;  
+	/*padding: 0px;  */
+	border: none;  
+	/*font: normal 48px/normal "Dynalight", Helvetica, sans-serif;  */
+	color: rgba(255,255,255,1);  
+	text-decoration: normal;  
+	/*text-align: center;  */
+	-o-text-overflow: clip;  
+	text-overflow: clip;  
+	white-space: pre;  
+	text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de ;  
+	-webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);  
+	-moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);  
+	-o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);  
+	transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+}
+#countDay:hover,#countHrs:hover,#countMin:hover,#countSec:hover {
+	text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #00ffff , 0 0 70px #00ffff , 0 0 80px #00ffff , 0 0 100px #00ffff ;	
+}
+@keyframes changeColor {
+	0% { text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #00ffff , 0 0 70px #00ffff , 0 0 80px #00ffff , 0 0 100px #00ffff ; }
+	40% { text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #00ffff , 0 0 70px #00ffff , 0 0 80px #00ffff , 0 0 100px #00ffff ; }
+	100% {text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #ff00de , 0 0 70px #ff00de , 0 0 80px #ff00de , 0 0 100px #ff00de ; }
+}
+.onceColor {
+	animation: changeColor 1s 1;
+}
+.countColor {
+	animation: changeColor 1s infinite;
+}
+
